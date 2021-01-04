@@ -81,6 +81,7 @@ def print_video(video):
     print_out("<i>{}</i>".format(url))
 
 
+
 def print_clip(clip):
     published_at = clip["createdAt"].replace("T", " @ ").replace("Z", "")
     length = utils.format_duration(clip["durationSeconds"])
@@ -98,3 +99,22 @@ def print_clip(clip):
         "  Length: <blue>{}</blue>"
         "  Views: <blue>{}</blue>".format(published_at, length, clip["viewCount"]))
     print_out("<i>{}</i>".format(clip["url"]))
+    
+ 
+def print_video_plain(video):
+    published_at = video["publishedAt"].replace("T", " @ ").replace("Z", "")
+    length = utils.format_duration(video["lengthSeconds"])
+    channel = video["creator"]["channel"]["displayName"]
+    playing = (
+        "playing {}".format(video["game"]["name"])
+        if video["game"] else ""
+    )
+
+    # Can't find URL in video object, strange
+    url = "https://www.twitch.tv/videos/{}".format(video["id"])
+
+    print_out("\n{}".format(video["id"]))
+    print_out("{}".format(video["title"]))
+    print_out("{} {}".format(channel, playing))
+    print_out("Published {}  Length: {} ".format(published_at, length))
+    print_out("{}".format(url))
